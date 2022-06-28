@@ -75,7 +75,7 @@ const login = async (req, res, next) => {
       maxAge: 60*1000*60*12,
       secure: process.env.NODE_ENV !== 'Development' ? true : false,
       path: '/',
-      sameSite: 'none'
+      sameSite: 'strict'
     })
     return commonHelper.response(res, user, 201, 'anda berhasil login')
   } catch (error) {

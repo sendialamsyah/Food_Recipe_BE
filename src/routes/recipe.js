@@ -11,10 +11,10 @@ const {
 } = require("../controller/recipe");
 
 router
-  .get("/", protect, getRecipe)
-  .get("/:idRecipe", protect, detailRecipe)
+  .get("/", getRecipe)
+  .get("/:idRecipe", detailRecipe)
   .post(
-    "/", protect,
+    "/",
     upload.fields([
       { name: "image", maxCount: 2 },
       { name: "video", maxCount: 2 },
@@ -22,13 +22,13 @@ router
     insertRecipe
   )
   .put(
-    "/:idRecipe", protect,
+    "/:idRecipe",
     upload.fields([
       { name: "image", maxCount: 2 },
       { name: "video", maxCount: 2 },
     ]),
     updateRecipe
   )
-  .delete("/:idRecipe", protect, deleteRecipe);
+  .delete("/:idRecipe", deleteRecipe);
 
 module.exports = router;
