@@ -12,10 +12,11 @@ const mainRouter = require('./src/routes/index')
 const app = express()
 app.use(express.json())
 app.use(morgan('dev'))
-app.use(cors({
-  credentials: true,
-  origin: 'http://localhost:3000',
-}))
+// app.use(cors({
+//   credentials: true,
+//   origin: 'http://localhost:3000',
+// }))
+app.use(cors())
 app.use(cookieParser())
 helmet({
   crossOriginResourcePolicy: false
