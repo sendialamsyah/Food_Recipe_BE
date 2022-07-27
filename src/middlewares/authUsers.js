@@ -3,21 +3,21 @@ const jwt = require('jsonwebtoken')
 const protect = (req, res, next) => {
   try {
     let token;
-    // if (
-    //   req.headers.authorization &&
-    //   req.headers.authorization.startsWith('Bearer')
-    // ) {
-    //   token = req.headers.authorization.split(' ')[1]
-      token = req.cookies.token
-      if(!token){
-      return  next(createError(400, 'server need token'))
-      }
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith('Bearer')
+    ) {
+      token = req.headers.authorization.split(' ')[1]
+      // token = req.cookies.token
+      // if(!token){
+      // return  next(createError(400, 'server need token'))
+      // }
       let decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
       req.decoded = decoded
       return next()
-    // } else {
-    //   next(createError(400, 'server need token'))
-    // }
+    } else {
+      next(createError(400, 'server need token'))
+    }
   } catch (error) {
     console.log(error)
     if (error && error.name === 'JsonWebTokenError') {

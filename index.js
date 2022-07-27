@@ -24,11 +24,11 @@ app.use(xss())
 app.disable('x-powered-by')
 
 app.use('/v1', mainRouter)
-app.use('/video', express.static(path.join(__dirname, './upload')))
+// app.use('/video', express.static(path.join(__dirname, './upload')))
 
 const PORT = process.env.PORT || 6000
 app.listen(PORT, () => {
-  console.log(`example app listening at http://localhost:${PORT}`)
+  console.log(`Server starting on port ${PORT}`)
 })
 app.all('*', (req, res, next) => {
   next(new CreateError.NotFound())

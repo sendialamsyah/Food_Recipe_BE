@@ -70,13 +70,13 @@ const login = async (req, res, next) => {
 
     user.token = authHelper.generateToken(payload)
     user.refreshToken = authHelper.generateRefreshToken(payload)
-    res.cookie('token', user.token, {
-      httpOnly: true,
-      maxAge: 60*1000*60*12,
-      secure: process.env.NODE_ENV !== 'Development' ? true : false,
-      path: '/',
-      sameSite: 'strict'
-    })
+    // res.cookie('token', user.token, {
+    //   httpOnly: true,
+    //   maxAge: 60*1000*60*12,
+    //   secure: process.env.NODE_ENV !== 'Development' ? true : false,
+    //   path: '/',
+    //   sameSite: 'strict'
+    // })
     return commonHelper.response(res, user, 201, 'anda berhasil login')
   } catch (error) {
     console.log(error)
@@ -121,6 +121,12 @@ const updateProfile = async (req, res, next) => {
   }
 }
 
+const profile = async (req, res, next) => {
+  const email = req.decoded.email
+  const { rows: [user] } = await findByEmail(email)
+  delete user.password
+  commonHelper.response(res, user, 200, 'get data sucess')
+}
 const changePassword = (req, res, next) => {
   changePasswordUser(req.body)
     .then(() => {
@@ -137,5 +143,6 @@ module.exports = {
   login,
   refreshToken,
   updateProfile,
+  profile,
   changePassword
 }

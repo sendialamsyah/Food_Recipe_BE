@@ -44,18 +44,16 @@ const updateUser = ({
   email,
   phonenumber,
   image,
-  updated_at,
   idUser
 }) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      'UPDATE users SET name = COALESCE($1, name), email = COALESCE($2, email), phonenumber = COALESCE($3, phonenumber), image = COALESCE($4, image), updated_at = COALESCE($5, updated_at) WHERE idUser = $6',
+      'UPDATE users SET name = COALESCE($1, name), email = COALESCE($2, email), phonenumber = COALESCE($3, phonenumber), image = COALESCE($4, image)  WHERE idUser = $5',
       [
         name,
         email,
         phonenumber,
         image,
-        updated_at,
         idUser
       ],
       (err, result) => {
@@ -68,6 +66,18 @@ const updateUser = ({
     )
   })
 }
+const selectUser = (idUser) => {
+  return new Promise((resolve, reject) => {
+    pool.query('SELECT * FROM users where idUser = $1', [idUser], (error, result) => {
+      if (!error) {
+        resolve(result)
+      } else {
+        reject(error)
+      }
+    })
+  })
+}
+
 const changePasswordUser = (body) => {
   return new Promise((resolve, reject) => {
     pool.query(
@@ -108,5 +118,6 @@ module.exports = {
   findByEmail,
   createUser,
   updateUser,
-  changePasswordUser
+  changePasswordUser,
+  selectUser
 }

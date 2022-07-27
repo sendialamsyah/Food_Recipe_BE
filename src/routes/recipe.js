@@ -14,7 +14,7 @@ router
   .get("/", getRecipe)
   .get("/:idRecipe", detailRecipe)
   .post(
-    "/",
+    "/", protect,
     upload.fields([
       { name: "image", maxCount: 2 },
       { name: "video", maxCount: 2 },
@@ -22,7 +22,7 @@ router
     insertRecipe
   )
   .put(
-    "/:idRecipe",
+    "/:idRecipe", protect,
     upload.fields([
       { name: "image", maxCount: 2 },
       { name: "video", maxCount: 2 },
