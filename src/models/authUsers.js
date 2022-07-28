@@ -66,7 +66,7 @@ const updateUser = ({
     )
   })
 }
-const selectUser = (idUser) => {
+const detailUser = (idUser) => {
   return new Promise((resolve, reject) => {
     pool.query('SELECT * FROM users where idUser = $1', [idUser], (error, result) => {
       if (!error) {
@@ -114,10 +114,11 @@ const changePasswordUser = (body) => {
     )
   })
 }
+
 module.exports = {
   findByEmail,
   createUser,
   updateUser,
   changePasswordUser,
-  selectUser
+  detailUser
 }

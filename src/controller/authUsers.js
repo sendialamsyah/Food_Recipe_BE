@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const { v4: uuidv4 } = require('uuid')
 const jwt = require('jsonwebtoken')
 const createError = require('http-errors')
-const { findByEmail, createUser, updateUser, changePasswordUser } = require('../models/authUsers')
+const { findByEmail, createUser, updateUser, changePasswordUser, detailUser  } = require('../models/authUsers')
 const commonHelper = require('../helper/common')
 const authHelper = require('../helper/auth')
 const cloudinary = require('../helper/cloudinary')
@@ -138,11 +138,23 @@ const changePassword = (req, res, next) => {
       console.log(err)
     })
 }
+const getDetailUser = async (req, res, next) => {
+  try {
+    const idUser = req.params.idUser
+    const { rows: [user] } = await detailUser(idUser)
+
+    commonHelper.response(res, user, 200, 'Get data from database')
+  } catch (error) {
+    console.log(error)
+    next(new createError.InternalServerError())
+  }
+}
 module.exports = {
   register,
   login,
   refreshToken,
   updateProfile,
   profile,
-  changePassword
+  changePassword,
+  getDetailUser
 }
