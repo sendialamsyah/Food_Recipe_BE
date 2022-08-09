@@ -81,6 +81,7 @@ Contributions are what make the open source community such an amazing place to b
 ## Related Project
 * [`Mama Recipe App`](https://food-recipe-orpin.vercel.app/)
 * [`Mama Recipe Rest API`](https://food-recipe22.herokuapp.com/)
+* [`Mama Recipe Frontend Repository`](https://github.com/sendialamsyah/Food_Recipe_FE)
 
 
 <!-- CONTACT -->
